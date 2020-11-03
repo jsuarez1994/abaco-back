@@ -1,4 +1,4 @@
-package com.main.abaco;
+package com.abaco;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
