@@ -1,9 +1,7 @@
-package com.abaco.entities;
+package com.abaco.entity;
 
 import java.io.Serializable;
-import java.util.Locale.Category;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 import com.abaco.util.DataBaseConstants;
@@ -18,26 +18,33 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 @Entity
-@Table(name = DataBaseConstants.TABLE_PAYMENTS, schema = DataBaseConstants.SCHEMA)
-public class PaymentEntity extends BaseEntity implements Serializable {
+@Table(name = DataBaseConstants.TABLE_CATEGORIES, schema = DataBaseConstants.SCHEMA)
+public class CategoryEntity extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "description")
+	@NotNull
+	@NotEmpty
 	private String description;
 
-	@Column(name = "period", length = 6)
+	@Column(name = "type", length = 6)
 	@NotNull
 	@NotEmpty
-	private String period;
+	@Min(value = 0)
+	@Max(value = 1)
+	private Integer type;
 
-	@Column(name = "quantity")
+	@Column(name = "nature")
 	@NotNull
 	@NotEmpty
-	private Float quantity;
+	@Min(value = 0)
+	@Max(value = 1)
+	private Integer nature;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "payment")
-	private Category category;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_payment")
+	private PaymentEntity payment;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_user")

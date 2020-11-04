@@ -1,4 +1,4 @@
-package com.abaco.entities;
+package com.abaco.entity;
 
 import java.io.Serializable;
 

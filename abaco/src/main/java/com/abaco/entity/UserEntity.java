@@ -1,4 +1,4 @@
-package com.abaco.entities;
+package com.abaco.entity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,8 +16,17 @@ import javax.validation.constraints.NotEmpty;
 import com.abaco.util.DataBaseConstants;
 import com.sun.istack.NotNull;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = DataBaseConstants.TABLE_USERS, schema = DataBaseConstants.SCHEMA)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class UserEntity extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

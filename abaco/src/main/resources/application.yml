@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost/abaco?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost/abaco?useSSL=false&serverTimezone=Europe/Madrid
     username: root
     password: 
     driver-class-name: com.mysql.cj.jdbc.Driver
