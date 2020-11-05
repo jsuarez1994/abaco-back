@@ -1,0 +1,18 @@
+spring:
+categories-default:
+  properties:
+    - description: Alquiler
+      type: 1
+      nature: 1
+    - description: Alimentación
+      type: 1
+      nature: 1
+    - description: Luz
+      type: 1
+      nature: 1
+    - description: Salidas
+      type: 0
+      nature: 1
+    - description: Sueldo
+      type: 1
+      nature: 0

@@ -16,8 +16,17 @@ import com.abaco.util.DataBaseConstants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name = DataBaseConstants.TABLE_PAYMENTS, schema = DataBaseConstants.SCHEMA)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class PaymentEntity extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -1,9 +1,9 @@
 package com.abaco.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.abaco.entity.UserEntity;
 
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+public interface UserRepository extends AbstractRepository<UserEntity> {
+
+	UserEntity findByEmailAndPassword(final String email, final String password);
 
 }

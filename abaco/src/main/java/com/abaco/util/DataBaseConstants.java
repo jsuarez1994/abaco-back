@@ -7,8 +7,8 @@ public class DataBaseConstants {
 
 	public static final String TABLE_USERS = "USERS";
 
-	public static final String TABLE_PAYMENTS = "PAYMENTS";
+	public static final String TABLE_PAYMENTS = "PAYMENT";
 
-	public static final String TABLE_CATEGORIES = "CATEGORIES";
+	public static final String TABLE_CATEGORIES = "CATEGORY";
 
 }
