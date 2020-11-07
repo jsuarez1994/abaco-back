@@ -9,5 +9,7 @@ public interface PaymentService {
 	PaymentDTO save(PaymentDTO dto, Long idUser);
 
 	List<PaymentDTO> getAllPaymentsByUser(Long idUser);
+	
+	int delete(PaymentDTO dto, Long idUser);
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -79,11 +80,31 @@ public class PaymentServiceImpl implements PaymentService {
 		List<PaymentEntity> list = paymentRepository.findAllByUser(mapperUtils.mapperEntityById(idUser));
 
 		if (!CollectionUtils.isEmpty(list)) {
-
 			return list.stream().map(item -> PaymentMapper.INSTANCE.entityToDTO(item)).collect(Collectors.toList());
-
 		} else {
 			return new ArrayList<>();
+		}
+
+	}
+
+	@Override
+	public int delete(PaymentDTO dto, Long idUser) {
+
+		try {
+			Optional<PaymentEntity> payment = paymentRepository.findByDescriptionAndPeriodAndUser(
+					StringUtils.trimToNull(dto.getDescription()), StringUtils.trimToNull(dto.getPeriod()),
+					mapperUtils.mapperEntityById(idUser));
+
+			if (payment.isPresent()) {
+				paymentRepository.delete(payment.get());
+				return 1;
+			} else {
+				return 0;
+			}
+
+		} catch (Exception e) {
+			log.error(logUtil.errorMethod(this.getClass().getSimpleName(), "delete", e.getMessage()));
+			return 0;
 		}
 
 	}

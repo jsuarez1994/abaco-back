@@ -13,11 +13,13 @@ public class EndPointsConstants {
 
 	public static final String EP_CATEGORY_CONTROLLER_SAVE = "/save";
 	public static final String EP_CATEGORY_CONTROLLER_GETALLBYUSER = "/getAllByUser";
+	public static final String EP_CATEGORY_CONTROLLER_DELETE = "/delete";
 
 	/**######## PAYMENT CONTROLLER ########*/
 	public static final String EP_PAYMENT_CONTROLLER = "/api/payment";
 
 	public static final String EP_PAYMENT_CONTROLLER_SAVE = "/save";
 	public static final String EP_PAYMENT_CONTROLLER_GETALLBYUSER = "/getAllByUser";
+	public static final String EP_PAYMENT_CONTROLLER_DELETE = "/delete";
 
 }

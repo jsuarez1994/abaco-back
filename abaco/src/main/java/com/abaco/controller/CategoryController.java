@@ -90,5 +90,32 @@ public class CategoryController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
+	
+	/**
+	 * Elimina payment
+	 * 
+	 * @return List<PaymentDTO>
+	 */
+	@ApiOperation(value = SwaggerConstants.AO_CATEGORYCONTROLLER_DELETE)
+	@PostMapping(path = EndPointsConstants.EP_CATEGORY_CONTROLLER_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> delete(@RequestBody CategoryDTO dto) {
+
+		final String methodName = "delete";
+
+		log.info(logUtil.initMethod(this.getClass().getSimpleName(), methodName));
+		try {
+
+			// TODO: OBTENER ID DE USUARIO LOGADO
+			Long id = 2L;
+
+			int register = categoryService.delete(dto, id);
+			log.info(logUtil.finishMethod(this.getClass().getSimpleName(), methodName));
+			return ResponseEntity.ok((register == 0) ? Boolean.FALSE : Boolean.TRUE);
+
+		} catch (Exception e) {
+			log.error(logUtil.errorMethod(this.getClass().getSimpleName(), methodName, e.getMessage()));
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+		}
+	}
 
 }

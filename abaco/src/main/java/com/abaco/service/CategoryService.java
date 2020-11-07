@@ -9,5 +9,7 @@ public interface CategoryService {
 	CategoryDTO save(CategoryDTO dto, Long idUser);
 	
 	List<CategoryDTO> getAllCategoriesByUser(Long idUser);
+	
+	int delete(CategoryDTO dto, Long idUser);
 
 }

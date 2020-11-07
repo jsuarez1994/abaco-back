@@ -2,8 +2,10 @@ package com.abaco.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -69,6 +71,28 @@ public class CategoryServiceImpl implements CategoryService {
 
 		} else {
 			return new ArrayList<>();
+		}
+
+	}
+
+	@Override
+	public int delete(CategoryDTO dto, Long idUser) {
+
+		try {
+			Optional<CategoryEntity> category = categoryRepository.findByDescriptionAndTypeAndNatureAndUser(
+					StringUtils.trimToNull(dto.getDescription()), dto.getType(), dto.getNature(),
+					mapperUtils.mapperEntityById(idUser));
+
+			if (category.isPresent()) {
+				categoryRepository.delete(category.get());
+				return 1;
+			} else {
+				return 0;
+			}
+
+		} catch (Exception e) {
+			log.error(logUtil.errorMethod(this.getClass().getSimpleName(), "delete", e.getMessage()));
+			return 0;
 		}
 
 	}
