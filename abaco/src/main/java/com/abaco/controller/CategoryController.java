@@ -1,5 +1,7 @@
 package com.abaco.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,25 +34,59 @@ public class CategoryController {
 	LogUtil logUtil;
 
 	/**
-	 * Guardar elemento Usuario
+	 * Guardar elemento Categoria
 	 * 
-	 * @param user
-	 * @return UserDTO
+	 * @param dto
+	 * @return CategoryDTO
 	 */
 	@ApiOperation(value = SwaggerConstants.AO_CATEGORYCONTROLLER_SAVE)
 	@PostMapping(path = EndPointsConstants.EP_CATEGORY_CONTROLLER_SAVE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> save(@RequestBody CategoryDTO user) {
-		log.info(logUtil.initMethod(this.getClass().getSimpleName(), "save"));
+	public ResponseEntity<Object> save(@RequestBody CategoryDTO dto) {
+
+		final String methodName = "save";
+
+		log.info(logUtil.initMethod(this.getClass().getSimpleName(), methodName));
 		try {
-			CategoryDTO saved = categoryService.save(user);
-			log.info(logUtil.finishMethod(this.getClass().getSimpleName(), "save"));
+
+			// TODO: OBTENER ID DE USUARIO LOGADO
+			Long id = 2L;
+
+			CategoryDTO saved = categoryService.save(dto, id);
+			log.info(logUtil.finishMethod(this.getClass().getSimpleName(), methodName));
 			if (null != saved) {
 				return ResponseEntity.ok(saved);
 			} else {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 			}
 		} catch (Exception e) {
-			log.error(logUtil.errorMethod(this.getClass().getSimpleName(), "save", e.getMessage()));
+			log.error(logUtil.errorMethod(this.getClass().getSimpleName(), methodName, e.getMessage()));
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+		}
+	}
+
+	/**
+	 * Retorna todas las categorias por usuario
+	 * 
+	 * @return List<CategoryDTO>
+	 */
+	@ApiOperation(value = SwaggerConstants.AO_CATEGORYCONTROLLER_GETALLBYUSER)
+	@PostMapping(path = EndPointsConstants.EP_CATEGORY_CONTROLLER_GETALLBYUSER, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> getAllByUser() {
+
+		final String methodName = "getAllByUser";
+
+		log.info(logUtil.initMethod(this.getClass().getSimpleName(), methodName));
+		try {
+
+			// TODO: OBTENER ID DE USUARIO LOGADO
+			Long id = 2L;
+
+			List<CategoryDTO> categories = categoryService.getAllCategoriesByUser(id);
+			log.info(logUtil.finishMethod(this.getClass().getSimpleName(), methodName));
+			return ResponseEntity.ok(categories);
+
+		} catch (Exception e) {
+			log.error(logUtil.errorMethod(this.getClass().getSimpleName(), methodName, e.getMessage()));
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}

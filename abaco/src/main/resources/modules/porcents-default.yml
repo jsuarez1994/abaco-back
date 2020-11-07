@@ -1,0 +1,6 @@
+spring:
+porcent-payment:
+  permanent: 50
+  personal: 30
+  saving: 20
+  

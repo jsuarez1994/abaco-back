@@ -41,13 +41,16 @@ public class UserController {
 	@ApiOperation(value = SwaggerConstants.AO_USERCONTROLLER_SAVE)
 	@PostMapping(path = EndPointsConstants.EP_USER_CONTROLLER_SAVE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> save(@RequestBody UserDTO user) {
-		log.info(logUtil.initMethod(this.getClass().getSimpleName(), "save"));
+
+		final String methodName = "save";
+
+		log.info(logUtil.initMethod(this.getClass().getSimpleName(), methodName));
 		try {
 			UserDTO saved = userService.save(user);
-			log.info(logUtil.finishMethod(this.getClass().getSimpleName(), "save"));
+			log.info(logUtil.finishMethod(this.getClass().getSimpleName(), methodName));
 			return ResponseEntity.ok(saved);
 		} catch (Exception e) {
-			log.error(logUtil.errorMethod(this.getClass().getSimpleName(), "save", e.getMessage()));
+			log.error(logUtil.errorMethod(this.getClass().getSimpleName(), methodName, e.getMessage()));
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
@@ -62,13 +65,16 @@ public class UserController {
 	@ApiOperation(value = SwaggerConstants.AO_USERCONTROLLER_LOGIN)
 	@PostMapping(path = EndPointsConstants.EP_USER_CONTROLLER_LOGIN, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> login(@RequestParam final String mail, @RequestParam final String password) {
-		log.info(logUtil.initMethod(this.getClass().getSimpleName(), "login"));
+
+		final String methodName = "login";
+
+		log.info(logUtil.initMethod(this.getClass().getSimpleName(), methodName));
 		try {
 			Boolean loged = userService.login(mail, password);
-			log.info(logUtil.finishMethod(this.getClass().getSimpleName(), "login"));
+			log.info(logUtil.finishMethod(this.getClass().getSimpleName(), methodName));
 			return ResponseEntity.ok(loged);
 		} catch (Exception e) {
-			log.error(logUtil.errorMethod(this.getClass().getSimpleName(), "login", e.getMessage()));
+			log.error(logUtil.errorMethod(this.getClass().getSimpleName(), methodName, e.getMessage()));
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
