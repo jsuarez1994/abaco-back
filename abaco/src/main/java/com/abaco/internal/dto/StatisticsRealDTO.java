@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class StatisticsRealDTO {
 
-	private Integer month;
+	private String period;
 
 	private Double gain;
 
