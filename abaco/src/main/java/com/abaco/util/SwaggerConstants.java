@@ -13,6 +13,9 @@ public class SwaggerConstants {
 	public static final String AO_PAYMENTCONTROLLER_GETALLBYUSER = "Obtiene todos los pagos a partir del usuario logado";
 	public static final String AO_PAYMENTCONTROLLER_DELETE = "Elimina el pago pasado por parametros";
 	
-	public static final String AO_DASHBOARDCONTROLLER_GETDATABYFILTER = "Obtiene la información pertinente para dashboard";
+	public static final String AO_DASHBOARDCONTROLLER_GETDATABYFILTER = "Obtiene la informacion pertinente para dashboard";
+	
+
+	public static final String AO_STATISTICSCONTROLLER_GETDATABYFILTER = "Obtiene la información pertinente para estadisticas";
 
 }

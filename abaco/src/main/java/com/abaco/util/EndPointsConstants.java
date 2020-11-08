@@ -25,6 +25,11 @@ public class EndPointsConstants {
 	/** ######## DASHBOARD CONTROLLER ######## */
 	public static final String EP_DASHBOARD_CONTROLLER = "/api/dashboard";
 
-	public static final String EP_PAYMENT_CONTROLLER_GETDATABYFILTER = "/getDataByFilter";
+	public static final String EP_DASHBOARD_CONTROLLER_GETDATABYFILTER = "/getDataByFilter";
+	
+	/** ######## STATISTICS CONTROLLER ######## */
+	public static final String EP_STATISTICS_CONTROLLER = "/api/dashboard";
+
+	public static final String EP_STATISTICS_CONTROLLER_GETDATABYFILTER = "/getDataByFilter";
 
 }
