@@ -10,7 +10,7 @@ public interface CategoryRepository extends AbstractRepository<CategoryEntity> {
 
 	Optional<CategoryEntity> findByDescriptionAndTypeAndNatureAndUser(final String description, final Integer type,
 			final Integer nature, final UserEntity idUser);
-
+	
 	List<CategoryEntity> findAllByUser(UserEntity entity);
 
 }

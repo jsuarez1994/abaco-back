@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.abaco.dto.PaymentDTO;
 import com.abaco.service.PaymentService;
 import com.abaco.util.EndPointsConstants;
-import com.abaco.util.LogUtil;
 import com.abaco.util.SwaggerConstants;
 
 import io.swagger.annotations.ApiOperation;
@@ -25,13 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping(EndPointsConstants.EP_PAYMENT_CONTROLLER)
 @Slf4j
-public class PaymentController {
+public class PaymentController extends BaseController {
 
 	@Autowired
-	PaymentService paymentService;
-
-	@Autowired
-	LogUtil logUtil;
+	private PaymentService paymentService;
 
 	/**
 	 * Guardar elemento Usuario
@@ -77,7 +74,7 @@ public class PaymentController {
 			// TODO: OBTENER ID DE USUARIO LOGADO
 			Long id = 2L;
 
-			List<PaymentDTO> payments = paymentService.getAllPaymentsByUser(id);
+			List<PaymentDTO> payments = paymentService.getAllItemsByUser(id);
 			log.info(logUtil.finishMethod(this.getClass().getSimpleName(), methodName));
 			return ResponseEntity.ok(payments);
 
@@ -93,7 +90,7 @@ public class PaymentController {
 	 * @return List<PaymentDTO>
 	 */
 	@ApiOperation(value = SwaggerConstants.AO_PAYMENTCONTROLLER_DELETE)
-	@PostMapping(path = EndPointsConstants.EP_PAYMENT_CONTROLLER_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path = EndPointsConstants.EP_PAYMENT_CONTROLLER_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> delete(@RequestBody PaymentDTO dto) {
 
 		final String methodName = "delete";

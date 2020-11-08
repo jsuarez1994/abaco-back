@@ -8,6 +8,8 @@ public class UtilConstants {
 
 	public static final Integer TYPE_PERSONAL = 0;
 
-	public static final Integer TYPE_FIXED = 1;
+	public static final Integer TYPE_PERMANENT = 1;
+
+	public static final String PORCENT = " %";
 
 }

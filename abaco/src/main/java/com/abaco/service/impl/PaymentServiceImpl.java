@@ -3,7 +3,6 @@ package com.abaco.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +13,16 @@ import com.abaco.dto.PaymentDTO;
 import com.abaco.entity.CategoryEntity;
 import com.abaco.entity.PaymentEntity;
 import com.abaco.entity.UserEntity;
-import com.abaco.mapper.MapperUtils;
 import com.abaco.mapper.PaymentMapper;
 import com.abaco.repository.CategoryRepository;
 import com.abaco.repository.PaymentRepository;
 import com.abaco.service.PaymentService;
-import com.abaco.util.LogUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class PaymentServiceImpl implements PaymentService {
+public class PaymentServiceImpl extends BaseServiceImpl implements PaymentService {
 
 	@Autowired
 	PaymentRepository paymentRepository;
@@ -33,29 +30,36 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	CategoryRepository categoryRepository;
 
-	@Autowired
-	MapperUtils mapperUtils;
-
-	@Autowired
-	LogUtil logUtil;
-
 	@Override
 	public PaymentDTO save(PaymentDTO dto, Long idUser) {
 
 		try {
 			UserEntity userEntity = mapperUtils.mapperEntityById(idUser);
 
-			PaymentEntity payment = PaymentMapper.INSTANCE.DTOtoEntity(dto);
-			payment.setUser(userEntity);
-
-			payment = paymentRepository.save(payment);
-
+			// Comprobamos si existe la categoria asociada
 			Optional<CategoryEntity> category = categoryRepository.findByDescriptionAndTypeAndNatureAndUser(
 					dto.getCategory().getDescription(), dto.getCategory().getType(), dto.getCategory().getNature(),
 					userEntity);
 
 			if (category.isPresent()) {
 
+				PaymentEntity payment = PaymentMapper.INSTANCE.DTOtoEntity(dto);
+				payment.setUser(userEntity);
+
+				// Verificamos si existe el objeto en BD
+				Optional<PaymentEntity> itemBD = paymentRepository.findByDescriptionAndPeriodAndUser(
+						StringUtils.trimToNull(dto.getDescription()), StringUtils.trimToNull(dto.getPeriod()),
+						userEntity);
+
+				// Si existe seteamos el ID para actualizarlo
+				if (itemBD.isPresent()) {
+					payment.setId(itemBD.get().getId());
+				}
+
+				// Guardamos Pago
+				payment = paymentRepository.save(payment);
+
+				// La categoria previamente verificada la guardamos con los parametros obtenidos
 				category.get().setPayment(payment);
 				category.get().setUser(userEntity);
 
@@ -75,15 +79,11 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public List<PaymentDTO> getAllPaymentsByUser(Long idUser) {
+	public List<PaymentDTO> getAllItemsByUser(Long idUser) {
 
 		List<PaymentEntity> list = paymentRepository.findAllByUser(mapperUtils.mapperEntityById(idUser));
 
-		if (!CollectionUtils.isEmpty(list)) {
-			return list.stream().map(item -> PaymentMapper.INSTANCE.entityToDTO(item)).collect(Collectors.toList());
-		} else {
-			return new ArrayList<>();
-		}
+		return (!CollectionUtils.isEmpty(list)) ? PaymentMapper.INSTANCE.listEntityToDTO(list) : new ArrayList<>();
 
 	}
 
@@ -107,6 +107,41 @@ public class PaymentServiceImpl implements PaymentService {
 			return 0;
 		}
 
+	}
+
+	@Override
+	public List<PaymentDTO> getAllPaymentsByPeriod(String period, Long idUser) {
+
+		try {
+
+			List<PaymentEntity> list = paymentRepository.findAllByPeriodAndUser(period,
+					mapperUtils.mapperEntityById(idUser));
+
+			return (!CollectionUtils.isEmpty(list)) ? PaymentMapper.INSTANCE.listEntityToDTO(list) : new ArrayList<>();
+
+		} catch (Exception e) {
+			log.error(logUtil.errorMethod(this.getClass().getSimpleName(), "getAllPaymentsByPeriod", e.getMessage()));
+			return null;
+		}
+	}
+
+	@Override
+	public List<PaymentDTO> getAllPaymentsByPeriodAndNature(String period, Integer nature, Long idUser) {
+
+		try {
+
+			CategoryEntity catByNature = new CategoryEntity();
+			catByNature.setNature(nature);
+
+			List<PaymentEntity> list = paymentRepository.findAllByPeriodAndCategoryAndUser(period, catByNature,
+					mapperUtils.mapperEntityById(idUser));
+
+			return (!CollectionUtils.isEmpty(list)) ? PaymentMapper.INSTANCE.listEntityToDTO(list) : new ArrayList<>();
+
+		} catch (Exception e) {
+			log.error(logUtil.errorMethod(this.getClass().getSimpleName(), "getAllPaymentsByPeriod", e.getMessage()));
+			return null;
+		}
 	}
 
 }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.abaco.dto.UserDTO;
 import com.abaco.service.UserService;
 import com.abaco.util.EndPointsConstants;
-import com.abaco.util.LogUtil;
 import com.abaco.util.SwaggerConstants;
 
 import io.swagger.annotations.ApiOperation;
@@ -24,13 +23,10 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping(EndPointsConstants.EP_USER_CONTROLLER)
 @Slf4j
-public class UserController {
+public class UserController extends BaseController{
 
 	@Autowired
-	UserService userService;
-
-	@Autowired
-	LogUtil logUtil;
+	private UserService userService;
 
 	/**
 	 * Guardar elemento Usuario

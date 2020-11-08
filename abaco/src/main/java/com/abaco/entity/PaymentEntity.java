@@ -42,7 +42,7 @@ public class PaymentEntity extends BaseEntity implements Serializable {
 	@Column(name = "quantity")
 	@NotNull
 	@NotEmpty
-	private Float quantity;
+	private Double quantity;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "payment")
 	private CategoryEntity category;

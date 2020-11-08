@@ -7,12 +7,8 @@ import com.abaco.dto.CategoryDTO;
 import com.abaco.entity.CategoryEntity;
 
 @Mapper(componentModel = "spring")
-public interface CategoryMapper {
+public interface CategoryMapper extends AbstractMapper<CategoryEntity, CategoryDTO> {
 
 	CategoryMapper INSTANCE = Mappers.getMapper(CategoryMapper.class);
-
-	CategoryDTO entityToDTO(CategoryEntity entity);
-
-	CategoryEntity DTOtoEntity(CategoryDTO dto);
 
 }

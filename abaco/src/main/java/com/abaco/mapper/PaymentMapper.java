@@ -7,12 +7,8 @@ import com.abaco.dto.PaymentDTO;
 import com.abaco.entity.PaymentEntity;
 
 @Mapper(componentModel = "spring")
-public interface PaymentMapper {
+public interface PaymentMapper extends AbstractMapper<PaymentEntity, PaymentDTO> {
 
 	PaymentMapper INSTANCE = Mappers.getMapper(PaymentMapper.class);
-
-	PaymentDTO entityToDTO(PaymentEntity entity);
-
-	PaymentEntity DTOtoEntity(PaymentDTO dto);
 
 }

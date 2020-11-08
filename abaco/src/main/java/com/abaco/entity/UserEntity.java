@@ -29,7 +29,7 @@ import lombok.Setter;
 @Setter
 public class UserEntity extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 11412424L;
 
 	@Column(name = "name")
 	@NotNull

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.abaco.dto.CategoryDTO;
 import com.abaco.service.CategoryService;
 import com.abaco.util.EndPointsConstants;
-import com.abaco.util.LogUtil;
 import com.abaco.util.SwaggerConstants;
 
 import io.swagger.annotations.ApiOperation;
@@ -25,13 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping(EndPointsConstants.EP_CATEGORY_CONTROLLER)
 @Slf4j
-public class CategoryController {
+public class CategoryController extends BaseController{
 
 	@Autowired
-	CategoryService categoryService;
-
-	@Autowired
-	LogUtil logUtil;
+	private CategoryService categoryService;
 
 	/**
 	 * Guardar elemento Categoria
@@ -81,7 +78,7 @@ public class CategoryController {
 			// TODO: OBTENER ID DE USUARIO LOGADO
 			Long id = 2L;
 
-			List<CategoryDTO> categories = categoryService.getAllCategoriesByUser(id);
+			List<CategoryDTO> categories = categoryService.getAllItemsByUser(id);
 			log.info(logUtil.finishMethod(this.getClass().getSimpleName(), methodName));
 			return ResponseEntity.ok(categories);
 
@@ -97,7 +94,7 @@ public class CategoryController {
 	 * @return List<PaymentDTO>
 	 */
 	@ApiOperation(value = SwaggerConstants.AO_CATEGORYCONTROLLER_DELETE)
-	@PostMapping(path = EndPointsConstants.EP_CATEGORY_CONTROLLER_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path = EndPointsConstants.EP_CATEGORY_CONTROLLER_DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> delete(@RequestBody CategoryDTO dto) {
 
 		final String methodName = "delete";

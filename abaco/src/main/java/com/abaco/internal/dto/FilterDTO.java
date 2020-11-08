@@ -1,4 +1,4 @@
-package com.abaco.dto;
+package com.abaco.internal.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,14 +9,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PaymentDTO {
-
-	private String description;
+public class FilterDTO {
 
 	private String period;
 
-	private Double quantity;
-
-	private CategoryDTO category;
+	private Integer moveType;
 
 }

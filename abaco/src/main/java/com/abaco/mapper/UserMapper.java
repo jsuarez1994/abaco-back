@@ -7,12 +7,8 @@ import com.abaco.dto.UserDTO;
 import com.abaco.entity.UserEntity;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
+public interface UserMapper extends AbstractMapper<UserEntity, UserDTO> {
 
 	UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-
-	UserDTO entityToDTO(UserEntity entity);
-
-	UserEntity DTOtoEntity(UserDTO dto);
 
 }

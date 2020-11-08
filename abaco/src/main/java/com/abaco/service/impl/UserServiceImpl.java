@@ -6,19 +6,17 @@ import org.springframework.stereotype.Service;
 
 import com.abaco.dto.UserDTO;
 import com.abaco.entity.UserEntity;
-import com.abaco.internal.object.CategoriesDefault;
 import com.abaco.internal.validation.UserValidation;
 import com.abaco.mapper.UserMapper;
 import com.abaco.repository.UserRepository;
 import com.abaco.service.CategoryService;
 import com.abaco.service.UserService;
-import com.abaco.util.LogUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepository;
@@ -27,13 +25,7 @@ public class UserServiceImpl implements UserService {
 	CategoryService categoryService;
 
 	@Autowired
-	CategoriesDefault categoriesDefault;
-
-	@Autowired
 	UserValidation userValidation;
-
-	@Autowired
-	LogUtil logUtil;
 
 	@Override
 	public UserDTO save(UserDTO dto) {
