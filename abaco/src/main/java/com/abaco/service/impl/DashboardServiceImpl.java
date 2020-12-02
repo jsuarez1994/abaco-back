@@ -2,6 +2,7 @@ package com.abaco.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.abaco.entity.UserEntity;
 import com.abaco.internal.dto.DataDashboardDTO;
@@ -53,24 +54,33 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 
 		// Obtenemos total ganancias
 		ProgressReportDTO progressReport = new ProgressReportDTO();
-		progressReport.setTotalGains(paymentUtil.getTotalGains(dataDashboard.getListPayment()));
+		Double totalGains = (!CollectionUtils.isEmpty(dataDashboard.getListPayment()))
+				? paymentUtil.getTotalGains(dataDashboard.getListPayment())
+				: UtilConstants.CERO_D;
+		progressReport.setTotalGains(totalGains);
 
 		// Obtenemos total gastos fijos
-		progressReport.setTotalExpensivePermanent(
-				paymentUtil.getTotalExpensive(dataDashboard.getListPayment(), UtilConstants.TYPE_PERMANENT));
+		Double totalExpensivePermanent = (!CollectionUtils.isEmpty(dataDashboard.getListPayment()))
+				? paymentUtil.getTotalExpensive(dataDashboard.getListPayment(), UtilConstants.TYPE_PERMANENT)
+				: UtilConstants.CERO_D;
+		progressReport.setTotalExpensivePermanent(totalExpensivePermanent);
 
 		// Obtenemos total gastos personal
-		progressReport.setTotalExpensivePersonal(
-				paymentUtil.getTotalExpensive(dataDashboard.getListPayment(), UtilConstants.TYPE_PERSONAL));
+		Double totalExpensivePersonal = (!CollectionUtils.isEmpty(dataDashboard.getListPayment()))
+				? paymentUtil.getTotalExpensive(dataDashboard.getListPayment(), UtilConstants.TYPE_PERSONAL)
+				: UtilConstants.CERO_D;
+		progressReport.setTotalExpensivePersonal(totalExpensivePersonal);
 
 		// Obtenemos los gastos que nos podemos permitir de Personal
-		Double permitedExpensivePersonal = paymentUtil.getPermitedToExpensive(dataDashboard.getListPayment(),
-				userEntity.getPorcentPaymentPersonal());
+		Double permitedExpensivePersonal = (!CollectionUtils.isEmpty(dataDashboard.getListPayment())) ? paymentUtil
+				.getPermitedToExpensive(dataDashboard.getListPayment(), userEntity.getPorcentPaymentPersonal())
+				: UtilConstants.CERO_D;
 		progressReport.setPermitedExpensivePersonal(permitedExpensivePersonal.toString().concat(UtilConstants.PORCENT));
 
 		// Obtenemos los gastos que nos podemos permitir Fijo
-		Double permitedExpensivePermanent = paymentUtil.getPermitedToExpensive(dataDashboard.getListPayment(),
-				userEntity.getPorcentPaymentPermanent());
+		Double permitedExpensivePermanent = (!CollectionUtils.isEmpty(dataDashboard.getListPayment())) ? paymentUtil
+				.getPermitedToExpensive(dataDashboard.getListPayment(), userEntity.getPorcentPaymentPermanent())
+				: UtilConstants.CERO_D;
 		progressReport
 				.setPermitedExpensivePermanent(permitedExpensivePermanent.toString().concat(UtilConstants.PORCENT));
 

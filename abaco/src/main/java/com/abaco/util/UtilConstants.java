@@ -11,5 +11,7 @@ public class UtilConstants {
 	public static final Integer TYPE_PERMANENT = 1;
 
 	public static final String PORCENT = " %";
+	
+	public static final Double CERO_D = 0D;
 
 }
