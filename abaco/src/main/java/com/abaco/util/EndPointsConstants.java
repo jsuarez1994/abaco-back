@@ -28,8 +28,9 @@ public class EndPointsConstants {
 	public static final String EP_DASHBOARD_CONTROLLER_GETDATABYFILTER = "/getDataByFilter";
 	
 	/** ######## STATISTICS CONTROLLER ######## */
-	public static final String EP_STATISTICS_CONTROLLER = "/api/dashboard";
+	public static final String EP_STATISTICS_CONTROLLER = "/api/statistics";
 
 	public static final String EP_STATISTICS_CONTROLLER_GETDATABYFILTER = "/getDataByFilter";
+	public static final String EP_STATISTICS_CONTROLLER_GETALLPERIODS = "/getAllPeriods";
 
 }

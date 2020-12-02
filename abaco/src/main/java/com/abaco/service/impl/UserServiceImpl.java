@@ -1,5 +1,7 @@
 package com.abaco.service.impl;
 
+import java.util.Optional;
+
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +56,12 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	public Boolean login(final String email, final String password) {
 		return (ObjectUtils.isNotEmpty(userRepository.findByEmailAndPassword(email, password))) ? Boolean.TRUE
 				: Boolean.FALSE;
+	}
+
+	@Override
+	public UserDTO getUserById(Long id) {
+		Optional<UserEntity> user = userRepository.findById(id);
+		return (user.isPresent()) ?  UserMapper.INSTANCE.entityToDTO(user.get()) : null;
 	}
 
 }

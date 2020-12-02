@@ -13,10 +13,8 @@ import lombok.Setter;
 @Setter
 public class DataStatisticsDTO {
 	
-	private List<StatisticsYearDTO> yearsOfPayments;
-
 	private StatisticsObjectiveDTO objectiveDTO;
 
-	private StatisticsRealDTO realDTO;
+	private List<StatisticsRealDTO> realDTO;
 
 }

@@ -45,7 +45,7 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 		// Obtenemos todas las categorias
 		dataDashboard.setListCategory(categoryService.getAllItemsByUser(userEntity.getId()));
 
-		// Obtenemos todos los pagos a partir de filtro. Si no se ha enviado nature,
+		// Obtenemos todos los pagos a partir de filtro. Si no se ha enviado nature
 		dataDashboard.setListPayment((filter.getMoveType().equals(new Integer(-1)))
 				? paymentService.getAllPaymentsByPeriod(filter.getPeriod(), userEntity.getId())
 				: paymentService.getAllPaymentsByPeriodAndNature(filter.getPeriod(), filter.getMoveType(),

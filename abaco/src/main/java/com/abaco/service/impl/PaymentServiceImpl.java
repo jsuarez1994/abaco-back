@@ -3,6 +3,7 @@ package com.abaco.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,6 +136,30 @@ public class PaymentServiceImpl extends BaseServiceImpl implements PaymentServic
 
 			List<PaymentEntity> list = paymentRepository.findAllByPeriodAndCategoryAndUser(period, catByNature,
 					mapperUtils.mapperEntityById(idUser));
+
+			return (!CollectionUtils.isEmpty(list)) ? PaymentMapper.INSTANCE.listEntityToDTO(list) : new ArrayList<>();
+
+		} catch (Exception e) {
+			log.error(logUtil.errorMethod(this.getClass().getSimpleName(), "getAllPaymentsByPeriod", e.getMessage()));
+			return null;
+		}
+	}
+
+	@Override
+	public List<String> getAllPeriods(Long idUser) {
+
+		List<String> periods = paymentRepository.findAllPeriodsByUser(idUser);
+
+		return (CollectionUtils.isEmpty(periods)) ? new ArrayList<>()
+				: periods.stream().distinct().collect(Collectors.toList());
+	}
+
+	@Override
+	public List<PaymentDTO> getAllPaymentsByYear(String year, Long idUser) {
+
+		try {
+
+			List<PaymentEntity> list = paymentRepository.findAllByPeriodStartsWithAndUser(year, mapperUtils.mapperEntityById(idUser));
 
 			return (!CollectionUtils.isEmpty(list)) ? PaymentMapper.INSTANCE.listEntityToDTO(list) : new ArrayList<>();
 

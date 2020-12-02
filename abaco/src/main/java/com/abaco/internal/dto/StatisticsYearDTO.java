@@ -13,8 +13,8 @@ import lombok.Setter;
 @Setter
 public class StatisticsYearDTO {
 
-	private Integer year;
+	private String year;
 
-	private List<Integer> months;
+	private List<String> months;
 
 }
