@@ -126,7 +126,35 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
-
+			<plugin>
+		        <groupId>org.pitest</groupId>
+		        <artifactId>pitest-maven</artifactId>
+		        <version>1.6.6</version>
+		        <executions>
+		            <execution>
+		                <id>pit-report</id>
+		                <phase>test</phase>
+		                <goals>
+		                    <goal>mutationCoverage</goal>
+		                </goals>
+		            </execution>
+		        </executions>
+		        <dependencies>
+		            <dependency>
+		                <groupId>org.pitest</groupId>
+		                <artifactId>pitest-junit5-plugin</artifactId>
+		                <version>0.8</version>
+		            </dependency>
+		        </dependencies>
+		        <configuration>
+		            <targetClasses>
+		                <param>com.abaco.dto.*</param>
+		            </targetClasses>
+		            <targetTests>
+		                <param>com.abaco.dto.*</param>
+		            </targetTests>
+		        </configuration>
+		    </plugin>
 		</plugins>
 	</build>
 
